@@ -47,7 +47,7 @@ function removeItemFromList() {
     let adjustedSelection = selection.value;
     myToDoList.deleteItem(adjustedSelection);
     let removedInput = document.querySelector("input#" + adjustedSelection);
-    let removedLabel = document.querySelector('label[for="' + adjustedSelection + '"]');//removes first selected item only, will not remove another selceted item
+    let removedLabel = document.querySelector('label[for="' + adjustedSelection + '"]'); //removes first selected item only, will not remove another selceted item
     let toDoListForm = document.getElementById("toDoListForm");
     removedLabel.parentElement.removeChild(removedLabel);
     removedInput.parentElement.removeChild(removedInput);
@@ -55,6 +55,17 @@ function removeItemFromList() {
   if (myToDoList.toDo.length < 1) {
     hideResultsDiv();
   }
+}
+
+function markDone() {
+  event.preventDefault()
+  const doneSelection = document.querySelectorAll("input:checked");
+  const doneSelectionArray = Array.from(doneSelection);
+  doneSelectionArray.forEach(function(selection) {
+    let adjustedSelection = selection.value;
+    let doneLabel = document.querySelector('label[for="' + adjustedSelection + '"]'); //targets first selected item only, will not target another selceted item
+    doneLabel.innerHTML = "<span class=markedDone>" + adjustedSelection + "</span>";
+  });
 }
 
 function showResultsDiv() {
@@ -70,5 +81,6 @@ function hideResultsDiv() {
 window.addEventListener("load", function() {
   this.document.getElementById("inputForm").addEventListener("submit", addItemToList);
   this.document.getElementById("removeButton").addEventListener("click", removeItemFromList);
+  this.document.getElementById("doneButton").addEventListener("click", markDone)
 })
 
