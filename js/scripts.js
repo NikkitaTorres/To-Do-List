@@ -26,7 +26,7 @@ function addItemToList() {
   myToDoList.addItem(inputText);
   let newItemLabel = document.createElement("label")
   newItemLabel.setAttribute("for",inputText);
-  newItemLabel.innerHTML = newItemLabel;
+  newItemLabel.innerText = inputText;
   let newItemCheckbox = document.createElement("input");
   newItemCheckbox.setAttribute("type","checkbox");
   newItemCheckbox.setAttribute("name",inputText);
@@ -34,7 +34,7 @@ function addItemToList() {
   newItemCheckbox.setAttribute("value",inputText);
   let toDoListForm = document.getElementById("toDoListForm");
   toDoListForm.prepend(document.createElement("br"));
-  toDoListForm.prepend(document.createElement("label"));
+  toDoListForm.prepend(newItemLabel);
   toDoListForm.prepend(newItemCheckbox);
   showResultsDiv();
 }
@@ -47,13 +47,12 @@ function removeItemFromList() {
     let adjustedSelection = selection.value;
     myToDoList.deleteItem(adjustedSelection);
     let removedInput = document.querySelector("input#" + adjustedSelection);
-    let removedLabel = document.querySelector("for");
+    let removedLabel = document.querySelector('label[for="' + adjustedSelection + '"]');//removes first selected item only, will not remove another selceted item
     let toDoListForm = document.getElementById("toDoListForm");
     removedLabel.parentElement.removeChild(removedLabel);
     removedInput.parentElement.removeChild(removedInput);
-    toDoListForm.removeChild(document.getElementById(adjustedSelection));
   });
-  if (myToDoList.length === 0) {
+  if (myToDoList.toDo.length < 1) {
     hideResultsDiv();
   }
 }
