@@ -1,10 +1,17 @@
 // To Do List Business Logic
 function ToDoList() {
   this.toDo = {};
+  this.currentId = 0;
 }
 
 ToDoList.prototype.addItem = function(item) {
-  this.toDo[item] = item;
+  item.id = this.assignId();
+  this.toDo[item.id] = item;
+}
+
+ToDoList.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
 }
 
 ToDoList.prototype.deleteItem = function(item) {
